@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mohd Aidil Hizwan | Cybersecurity & Blockchain</title>
+    <link rel="icon" type="image/x-icon" href="dil.jpg" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-dark: #0a0a0f;
+        --secondary-dark: #0f1420;
+        --accent-blue: #0066ff;
+        --accent-cyan: #00d4ff;
+        --accent-purple: #8a2be2;
+        --accent-red: #ff4757;
+        --glass-light: rgba(255, 255, 255, 0.05);
+        --glass-dark: rgba(0, 0, 0, 0.3);
+        --text-primary: #ffffff;
+        --text-secondary: #b0b8d0;
+        --gradient-main: linear-gradient(
+          135deg,
+          #0a0a0f 0%,
+          #0f1420 50%,
+          #0a1a2f 100%
+        );
+        --gradient-accent: linear-gradient(
+          90deg,
+          var(--accent-blue),
+          var(--accent-cyan)
+        );
+        --gradient-card: linear-gradient(
+          145deg,
+          rgba(10, 20, 40, 0.7),
+          rgba(0, 20, 40, 0.4)
+        );
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--gradient-main);
+        color: var(--text-primary);
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 30%,
+            rgba(0, 102, 255, 0.05) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(0, 212, 255, 0.03) 0%,
+            transparent 40%
+          );
+        pointer-events: none;
+        z-index: -1;
+      }
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--primary-dark);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+      }
+      .loading-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .loading-bar-container {
+        width: 300px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        margin-top: 20px;
+        overflow: hidden;
+        position: relative;
+      }
+      .loading-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--gradient-accent);
+        border-radius: 10px;
+        transition: width 0.3s ease;
+      }
+      .loading-text {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-top: 15px;
+        letter-spacing: 2px;
+      }
+      .loading-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--glass-dark);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        animation: pulse 2s infinite;
+        border: 2px solid rgba(0, 102, 255, 0.3);
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(0, 102, 255, 0.6);
+        }
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .glass-effect {
+        background: rgba(15, 20, 32, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+      }
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 2rem;
+        position: relative;
+        display: inline-block;
+      }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: var(--gradient-accent);
+        border-radius: 2px;
+      }
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 20px 0;
+        z-index: 1000;
+        transition: all 0.4s ease;
+      }
+      header.scrolled {
+        background: rgba(10, 10, 15, 0.9);
+        backdrop-filter: blur(10px);
+        padding: 15px 0;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      }
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--text-primary);
+      }
+      .logo-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--accent-blue);
+      }
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+      }
+      .nav-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 5px 0;
+      }
+      .nav-links a:hover {
+        color: var(--text-primary);
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-accent);
+        transition: width 0.3s ease;
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      .hero {
+        padding: 200px 0 120px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+      .hero-text h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 20px;
+        background: linear-gradient(90deg, #ffffff, var(--accent-cyan));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .hero-text .subtitle {
+        font-size: 1.5rem;
+        color: var(--text-secondary);
+        margin-bottom: 30px;
+        font-weight: 500;
+      }
+      .hero-text .title-line {
+        font-size: 1.8rem;
+        color: var(--accent-cyan);
+        margin-bottom: 25px;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .hero-text p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: var(--text-secondary);
+        margin-bottom: 40px;
+        max-width: 500px;
+      }
+      .hero-badge {
+        display: inline-block;
+        padding: 8px 20px;
+        background: rgba(0, 102, 255, 0.15);
+        border: 1px solid rgba(0, 102, 255, 0.3);
+        border-radius: 50px;
+        font-size: 0.9rem;
+        color: var(--accent-cyan);
+        margin-bottom: 20px;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .hero-visual {
+        position: relative;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+      .shape {
+        position: absolute;
+        border-radius: 50%;
+        background: var(--gradient-accent);
+        opacity: 0.1;
+        filter: blur(20px);
+      }
+      .shape-1 {
+        width: 200px;
+        height: 200px;
+        top: 0;
+        right: 0;
+        animation: float 8s infinite ease-in-out;
+      }
+      .shape-2 {
+        width: 150px;
+        height: 150px;
+        bottom: 0;
+        left: 0;
+        animation: float 10s infinite ease-in-out reverse;
+      }
+      .hero-card {
+        width: 320px;
+        height: 320px;
+        border-radius: 20px;
+        background: var(--gradient-card);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease;
+      }
+      .hero-card:hover {
+        transform: translateY(-10px) rotateX(5deg);
+      }
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          45deg,
+          transparent,
+          rgba(0, 102, 255, 0.1),
+          transparent
+        );
+        transform: rotate(45deg);
+        z-index: -1;
+        animation: shine 3s infinite;
+      }
+      @keyframes shine {
+        0% {
+          transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) translateX(0);
+        }
+        50% {
+          transform: translateY(-20px) translateX(10px);
+        }
+      }
+      .section {
+        padding: 100px 0;
+      }
+      .about-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 60px;
+        align-items: start;
+      }
+      .about-text p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+        color: var(--text-secondary);
+        margin-bottom: 25px;
+      }
+      .about-highlights {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
+      }
+      .highlight-item {
+        padding: 20px;
+        border-radius: 12px;
+        background: rgba(0, 20, 40, 0.3);
+        border-left: 4px solid var(--accent-blue);
+        transition: transform 0.3s ease;
+      }
+      .highlight-item:hover {
+        transform: translateY(-5px);
+      }
+      .highlight-item i {
+        font-size: 1.5rem;
+        color: var(--accent-cyan);
+        margin-bottom: 10px;
+      }
+      .skills-section {
+        margin-top: 80px;
+      }
+      .skills-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .skill-chart {
+        padding: 30px;
+        height: 100%;
+      }
+      .skill-item {
+        margin-bottom: 25px;
+      }
+      .skill-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .skill-name {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      .skill-percent {
+        font-family: "JetBrains Mono", monospace;
+        color: var(--accent-cyan);
+      }
+      .skill-bar {
+        height: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .skill-progress {
+        height: 100%;
+        background: var(--gradient-accent);
+        border-radius: 10px;
+        width: 0;
+        transition: width 1.5s ease;
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+      }
+      .project-card {
+        padding: 30px;
+        height: 100%;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .project-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(0, 102, 255, 0.4);
+        box-shadow: 0 15px 30px rgba(0, 102, 255, 0.15);
+      }
+      .project-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--gradient-accent);
+      }
+      .project-icon {
+        font-size: 2rem;
+        color: var(--accent-cyan);
+        margin-bottom: 20px;
+      }
+      .project-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: var(--text-primary);
+      }
+      .project-desc {
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+      .project-client {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        background: rgba(0, 102, 255, 0.1);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: var(--accent-cyan);
+        margin-top: 15px;
+        font-family: "JetBrains Mono", monospace;
+        border: 1px solid rgba(0, 102, 255, 0.3);
+        animation: clientPulse 2s infinite;
+      }
+      @keyframes clientPulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 6px rgba(0, 102, 255, 0);
+        }
+      }
+      .certificates-section,
+      .education-section {
+        margin-top: 80px;
+      }
+      .education-timeline {
+        position: relative;
+        padding: 40px 0;
+      }
+      .education-timeline::before {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background: var(--gradient-accent);
+        border-radius: 4px;
+      }
+      .education-items {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+      .education-item {
+        position: relative;
+        width: calc(50% - 30px);
+        padding: 30px;
+        border-radius: 16px;
+        background: rgba(10, 20, 40, 0.5);
+        border: 1px solid rgba(0, 102, 255, 0.2);
+        transition: all 0.4s ease;
+      }
+      .education-item:nth-child(odd) {
+        align-self: flex-start;
+        margin-left: 0;
+        margin-right: auto;
+      }
+      .education-item:nth-child(even) {
+        align-self: flex-end;
+        margin-left: auto;
+        margin-right: 0;
+      }
+      .education-item::before {
+        content: "";
+        position: absolute;
+        top: 30px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--gradient-accent);
+        z-index: 2;
+      }
+      .education-item:nth-child(odd)::before {
+        right: -40px;
+      }
+      .education-item:nth-child(even)::before {
+        left: -40px;
+      }
+      .education-item:hover {
+        transform: translateY(-8px);
+        border-color: rgba(0, 102, 255, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
+      }
+      .education-icon {
+        font-size: 2rem;
+        color: var(--accent-cyan);
+        margin-bottom: 15px;
+      }
+      .education-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+        background: linear-gradient(90deg, #ffffff, var(--accent-cyan));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .education-org {
+        color: var(--accent-cyan);
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .education-period {
+        display: inline-block;
+        padding: 4px 12px;
+        background: rgba(0, 102, 255, 0.2);
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: var(--accent-cyan);
+        margin-bottom: 15px;
+      }
+      .education-desc {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        font-size: 0.95rem;
+        margin-bottom: 10px;
+      }
+      .education-subjects {
+        margin-top: 10px;
+        padding-left: 15px;
+      }
+      .education-subject {
+        display: flex;
+        align-items: center;
+        margin-bottom: 6px;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+      .education-subject:before {
+        content: "•";
+        color: var(--accent-cyan);
+        margin-right: 8px;
+        font-size: 1.2rem;
+      }
+      .covid-batch {
+        display: inline-block;
+        padding: 3px 10px;
+        background: rgba(255, 71, 87, 0.2);
+        border: 1px solid rgba(255, 71, 87, 0.4);
+        border-radius: 12px;
+        font-size: 0.85rem;
+        color: var(--accent-red);
+        font-family: "JetBrains Mono", monospace;
+        margin-top: 8px;
+      }
+      .cv-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 25px;
+        background: rgba(0, 102, 255, 0.2);
+        border: 1px solid rgba(0, 102, 255, 0.4);
+        border-radius: 8px;
+        color: var(--accent-cyan);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+      }
+      .cv-button:hover {
+        background: rgba(0, 102, 255, 0.3);
+        transform: translateY(-3px);
+      }
+      .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        margin-top: 40px;
+      }
+      .contact-info {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 25px;
+      }
+      .contact-item {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+      .contact-item:hover {
+        transform: translateY(-8px);
+      }
+      .contact-icon {
+        font-size: 2rem;
+        color: var(--accent-cyan);
+        margin-bottom: 15px;
+      }
+      .contact-platform {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+      }
+      .contact-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-size: 0.95rem;
+        word-break: break-all;
+      }
+      .contact-link:hover {
+        color: var(--accent-cyan);
+      }
+      footer {
+        padding: 60px 0 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin-top: 80px;
+        text-align: center;
+      }
+      .footer-logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: linear-gradient(
+          90deg,
+          var(--accent-blue),
+          var(--accent-cyan)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .footer-copyright {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-top: 30px;
+      }
+      .footer-copyright-second {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-top: 5px;
+      }
+      .chart-container {
+        position: relative;
+        height: 300px;
+        margin-top: 30px;
+      }
+      .certificates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 40px;
+      }
+      .certificate-card {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .certificate-icon {
+        font-size: 1.8rem;
+        color: var(--accent-cyan);
+        margin-bottom: 15px;
+      }
+      .certificate-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .certificate-org {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+      }
+      .project-client i {
+        font-size: 0.9rem;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease forwards;
+      }
+      @keyframes glow {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 5px rgba(0, 102, 255, 0.5));
+        }
+        50% {
+          filter: drop-shadow(0 0 15px rgba(0, 102, 255, 0.8));
+        }
+      }
+      .animate-glow {
+        animation: glow 2s infinite;
+      }
+      @media (max-width: 1024px) {
+        .hero-content,
+        .about-content,
+        .contact-container {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .hero-text h1 {
+          font-size: 3rem;
+        }
+        .section-title {
+          font-size: 2.2rem;
+        }
+        .education-timeline::before {
+          left: 30px;
+        }
+        .education-item {
+          width: calc(100% - 60px);
+          margin-left: 60px !important;
+          margin-right: 0 !important;
+        }
+        .education-item:nth-child(odd)::before,
+        .education-item:nth-child(even)::before {
+          left: -40px;
+          right: auto;
+        }
+      }
+      @media (max-width: 768px) {
+        .nav-links {
+          position: fixed;
+          top: 80px;
+          left: 0;
+          width: 100%;
+          background: rgba(10, 10, 15, 0.95);
+          backdrop-filter: blur(10px);
+          flex-direction: column;
+          align-items: center;
+          padding: 30px 0;
+          gap: 25px;
+          transform: translateY(-100%);
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.4s ease;
+          z-index: 999;
+        }
+        .nav-links.active {
+          transform: translateY(0);
+          opacity: 1;
+          visibility: visible;
+        }
+        .mobile-menu-btn {
+          display: block;
+        }
+        .hero {
+          padding: 150px 0 80px;
+        }
+        .hero-text h1 {
+          font-size: 2.5rem;
+        }
+        .hero-text .subtitle {
+          font-size: 1.3rem;
+        }
+        .section {
+          padding: 70px 0;
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero-text h1 {
+          font-size: 2rem;
+        }
+        .hero-text .subtitle {
+          font-size: 1.1rem;
+        }
+        .section-title {
+          font-size: 1.8rem;
+        }
+        .container {
+          padding: 0 15px;
+        }
+        .education-item {
+          width: calc(100% - 40px);
+          margin-left: 40px !important;
+          padding: 20px;
+        }
+        .education-item::before {
+          width: 16px;
+          height: 16px;
+          left: -28px !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-logo">
+        <i class="fas fa-code" style="font-size: 2rem; color: #0066ff"></i>
+      </div>
+      <div class="loading-bar-container">
+        <div class="loading-bar" id="loadingBar"></div>
+      </div>
+      <div class="loading-text" id="loadingText">INITIALIZING PORTFOLIO...</div>
+    </div>
+
+    <header id="mainHeader">
+      <div class="container">
+        <nav class="nav-container">
+          <div class="logo">
+            <img
+              src="dil.jpg"
+              alt="Logo"
+              class="logo-img"
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-code\'></i>';"
+            />
+            <span>MOHD AIDIL HIZWAN</span>
+          </div>
+          <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+          </button>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certificates">Certificates</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <div class="hero-badge">
+              CYBERSECURITY RESEARCHER | SOFTWARE ENGINEER | FOUNDER
+            </div>
+            <h1>Mohd Aidil Hizwan</h1>
+            <div class="title-line">UiTM Shah Alam Alumni</div>
+            <div class="subtitle">Bachelor of Sport Science and Recreation</div>
+            <p>
+              Cybersecurity Researcher | Blockchain Developer | Backend
+              Programmer | Pentester | Founder of
+              <a
+                href="https://netiqtech.biz.my"
+                style="color: var(--accent-cyan); text-decoration: none"
+                >NetIQ Technologies</a
+              >
+            </p>
+            <div class="about-highlights">
+              <div class="highlight-item">
+                <i class="fas fa-shield-alt"></i>
+                <div>Cybersecurity Expert</div>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-link"></i>
+                <div>Blockchain Developer</div>
+              </div>
+              <div class="highlight-item">
+                <i class="fas fa-server"></i>
+                <div>Backend Programmer</div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="floating-shapes">
+              <div class="shape shape-1"></div>
+              <div class="shape shape-2"></div>
+            </div>
+            <div class="hero-card animate-glow">
+              <div
+                style="
+                  font-size: 1.1rem;
+                  color: var(--accent-cyan);
+                  margin-bottom: 15px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                TECH STACK
+              </div>
+              <div
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 10px;
+                  margin-bottom: 25px;
+                "
+              >
+                <span
+                  style="
+                    padding: 5px 12px;
+                    background: rgba(0, 102, 255, 0.2);
+                    border-radius: 20px;
+                    font-size: 0.9rem;
+                  "
+                  >Python</span
+                >
+                <span
+                  style="
+                    padding: 5px 12px;
+                    background: rgba(0, 102, 255, 0.2);
+                    border-radius: 20px;
+                    font-size: 0.9rem;
+                  "
+                  >PHP</span
+                >
+                <span
+                  style="
+                    padding: 5px 12px;
+                    background: rgba(0, 102, 255, 0.2);
+                    border-radius: 20px;
+                    font-size: 0.9rem;
+                  "
+                  >Solidity</span
+                >
+                <span
+                  style="
+                    padding: 5px 12px;
+                    background: rgba(0, 102, 255, 0.2);
+                    border-radius: 20px;
+                    font-size: 0.9rem;
+                  "
+                  >JavaScript</span
+                >
+              </div>
+              <div
+                style="
+                  font-size: 1.1rem;
+                  color: var(--accent-cyan);
+                  margin-bottom: 15px;
+                  font-family: 'JetBrains Mono', monospace;
+                "
+              >
+                SPECIALIZATION
+              </div>
+              <div
+                style="
+                  color: var(--text-secondary);
+                  line-height: 1.6;
+                  font-size: 0.95rem;
+                "
+              >
+                Secure system design, penetration testing, blockchain
+                development, and backend architecture with a unique perspective
+                from sports science.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              I am a versatile professional specializing in cybersecurity,
+              blockchain development, and backend programming. With expertise in
+              penetration testing and system security, I create secure,
+              efficient solutions. As a sport scientist, I bring a unique
+              perspective by merging technology with human performance.
+            </p>
+            <p>
+              My journey combines technical expertise with analytical thinking
+              learned through sports science, allowing me to approach problems
+              from multiple angles and develop innovative solutions.
+            </p>
+            <p>
+              As the founder of NetIQ Technologies, I lead a team dedicated to
+              creating secure digital solutions for modern challenges, with a
+              focus on blockchain applications and cybersecurity.
+            </p>
+          </div>
+          <div class="glass-effect" style="padding: 30px">
+            <div
+              style="
+                font-size: 1.2rem;
+                color: var(--accent-cyan);
+                margin-bottom: 20px;
+                font-weight: 600;
+              "
+            >
+              Quick Facts
+            </div>
+            <div style="margin-bottom: 20px">
+              <div
+                style="display: flex; align-items: center; margin-bottom: 15px"
+              >
+                <i
+                  class="fas fa-graduation-cap"
+                  style="color: var(--accent-blue); margin-right: 10px"
+                ></i>
+                <span>UiTM Shah Alam Graduate</span>
+              </div>
+              <div
+                style="display: flex; align-items: center; margin-bottom: 15px"
+              >
+                <i
+                  class="fas fa-briefcase"
+                  style="color: var(--accent-blue); margin-right: 10px"
+                ></i>
+                <span>Founder of NetIQ Technologies</span>
+              </div>
+              <div
+                style="display: flex; align-items: center; margin-bottom: 15px"
+              >
+                <i
+                  class="fas fa-code"
+                  style="color: var(--accent-blue); margin-right: 10px"
+                ></i>
+                <span>10+ Programming Languages</span>
+              </div>
+              <div style="display: flex; align-items: center">
+                <i
+                  class="fas fa-project-diagram"
+                  style="color: var(--accent-blue); margin-right: 10px"
+                ></i>
+                <span>15+ Completed Projects</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="skills-section" id="skills">
+          <h2 class="section-title">Proficiency</h2>
+          <div class="skills-container">
+            <div class="glass-effect skill-chart">
+              <div
+                style="
+                  font-size: 1.3rem;
+                  margin-bottom: 25px;
+                  color: var(--text-primary);
+                  font-weight: 600;
+                "
+              >
+                Skill Chart
+              </div>
+              <div class="chart-container">
+                <canvas id="skillsChart"></canvas>
+              </div>
+            </div>
+            <div class="glass-effect skill-chart">
+              <div
+                style="
+                  font-size: 1.3rem;
+                  margin-bottom: 25px;
+                  color: var(--text-primary);
+                  font-weight: 600;
+                "
+              >
+                Technical Skills
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">Python</span>
+                  <span class="skill-percent">98%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="98"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">PHP</span>
+                  <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="90"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">Bash/Linux</span>
+                  <span class="skill-percent">100%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="100"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">SQL</span>
+                  <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="90"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">Solidity</span>
+                  <span class="skill-percent">80%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="80"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">JavaScript/TypeScript</span>
+                  <span class="skill-percent">87%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="87"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-header">
+                  <span class="skill-name">Flask</span>
+                  <span class="skill-percent">83%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" data-width="83"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+          <div class="glass-effect project-card animate-fade-in-up">
+            <div class="project-icon"><i class="fas fa-hospital"></i></div>
+            <div class="project-title">Patient Registration Software</div>
+            <div class="project-desc">
+              Developed a comprehensive patient management system streamlining
+              registration processes.
+            </div>
+            <div class="project-client">
+              <i class="fas fa-building"></i> Hospital Sultanah Aminah Johor
+              Bahru
+            </div>
+          </div>
+          <div class="glass-effect project-card animate-fade-in-up">
+            <div class="project-icon"><i class="fas fa-link"></i></div>
+            <div class="project-title">
+              Blockchain Digital Identity Verification
+            </div>
+            <div class="project-desc">
+              Created a secure blockchain-based identity verification system for
+              municipal services.
+            </div>
+            <div class="project-client">
+              <i class="fas fa-city"></i> MBKT & MBJB
+            </div>
+          </div>
+          <div class="glass-effect project-card animate-fade-in-up">
+            <div class="project-icon"><i class="fas fa-chart-bar"></i></div>
+            <div class="project-title">Procurement Analytics Dashboard</div>
+            <div class="project-desc">
+              Developed interactive analytics dashboards for procurement data
+              visualization and decision support.
+            </div>
+            <div class="project-client">
+              <i class="fas fa-chart-line"></i> Power BI (SIRIM Berhad)
+            </div>
+          </div>
+          <div class="glass-effect project-card animate-fade-in-up">
+            <div class="project-icon"><i class="fas fa-robot"></i></div>
+            <div class="project-title">AI-Powered Security Analyzer</div>
+            <div class="project-desc">
+              Built an AI system for automated security vulnerability detection
+              and analysis.
+            </div>
+            <div class="project-client">
+              <i class="fas fa-trophy"></i> UiTM Hackathon
+            </div>
+          </div>
+          <div class="glass-effect project-card animate-fade-in-up">
+            <div class="project-icon"><i class="fas fa-code"></i></div>
+            <div class="project-title">Web Development Projects</div>
+            <div class="project-desc">
+              Various client projects focusing on secure, responsive web
+              applications with modern frameworks.
+            </div>
+          </div>
+          <div class="glass-effect project-card animate-fade-in-up">
+            <div class="project-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="project-title">SOC Analyst & System Administration</div>
+            <div class="project-desc">
+              Security Operations Center implementation and system
+              administration.
+            </div>
+            <div class="project-client">
+              <i class="fas fa-university"></i> Jabatan Pendidikan Negeri
+              Terengganu
+            </div>
+          </div>
+          <div class="glass-effect project-card animate-fade-in-up">
+            <div class="project-icon"><i class="fas fa-search"></i></div>
+            <div class="project-title">Digital Forensic Investigation</div>
+            <div class="project-desc">
+              Conducted digital forensic investigations and developed
+              investigation protocols.
+            </div>
+            <div class="project-client">
+              <i class="fas fa-graduation-cap"></i> University College Sedaya
+              International & UKM
+            </div>
+          </div>
+          <div class="glass-effect project-card animate-fade-in-up">
+            <div class="project-icon"><i class="fas fa-brain"></i></div>
+            <div class="project-title">NetAlin AI Business Management</div>
+            <div class="project-desc">
+              AI-driven business management system optimizing operations through
+              machine learning algorithms.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="certificates">
+      <div class="container">
+        <h2 class="section-title">Certificates</h2>
+        <div class="certificates-grid">
+          <div class="glass-effect certificate-card">
+            <div class="certificate-icon"><i class="fas fa-award"></i></div>
+            <div class="certificate-title">
+              United Nations Cyber Security Specialist
+            </div>
+            <div class="certificate-org">UNOICT</div>
+            <div>
+              Specialized cybersecurity certification from United Nations
+              agency.
+            </div>
+          </div>
+          <div class="glass-effect certificate-card">
+            <div class="certificate-icon">
+              <i class="fas fa-user-secret"></i>
+            </div>
+            <div class="certificate-title">Certified Ethical Hacker (CEH)</div>
+            <div class="certificate-org">EC-Council</div>
+            <div>
+              Professional ethical hacking and penetration testing
+              certification.
+            </div>
+          </div>
+          <div class="glass-effect certificate-card">
+            <div class="certificate-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="certificate-title">OSCP</div>
+            <div class="certificate-org">Offensive Security</div>
+            <div>
+              Offensive Security Certified Professional - hands-on penetration
+              testing certification.
+            </div>
+          </div>
+          <div class="glass-effect certificate-card">
+            <div class="certificate-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="certificate-title">
+              Bachelor of Sport Science and Recreation
+            </div>
+            <div class="certificate-org">UiTM Shah Alam</div>
+            <div>
+              Undergraduate degree with focus on human performance and
+              technology integration.
+            </div>
+            <a
+              href="https://drive.google.com/file/d/1FXZ8TmA6VkFd-3RLey-konpzZK6n1Mox/view?usp=sharing"
+              class="cv-button"
+              target="_blank"
+            >
+              <i class="fas fa-file-alt"></i> Review CV
+            </a>
+          </div>
+        </div>
+
+        <div class="education-section" id="education">
+          <h2 class="section-title">Education Timeline</h2>
+          <div class="education-timeline">
+            <div class="education-items">
+              <div class="glass-effect education-item">
+                <div class="education-icon"><i class="fas fa-school"></i></div>
+                <div class="education-title">Elementary School</div>
+                <div class="education-org">SK Seri Melati, Johor Bahru</div>
+                <div class="education-period">2007 - 2013</div>
+                <div class="education-desc">
+                  Foundation years in primary education.
+                </div>
+              </div>
+              <div class="glass-effect education-item">
+                <div class="education-icon">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="education-title">Secondary School</div>
+                <div class="education-org">SMK Sri Rahmat, Johor Bahru</div>
+                <div class="education-period">2014 - 2015</div>
+                <div class="education-desc">
+                  Early secondary education foundation.
+                </div>
+              </div>
+              <div class="glass-effect education-item">
+                <div class="education-icon"><i class="fas fa-book"></i></div>
+                <div class="education-title">SPM</div>
+                <div class="education-org">SMK Aminuddin Baki, Johor Bahru</div>
+                <div class="education-period">2016 - 2019</div>
+                <div class="education-desc">Sijil Pelajaran Malaysia</div>
+                <div class="education-subjects">
+                  <div class="education-subject">Accounting</div>
+                  <div class="education-subject">Computer Science</div>
+                </div>
+              </div>
+              <div class="glass-effect education-item">
+                <div class="education-icon">
+                  <i class="fas fa-university"></i>
+                </div>
+                <div class="education-title">STPM</div>
+                <div class="education-org">Sijil Tinggi Pelajaran Malaysia</div>
+                <div class="education-period">2018 - 2022</div>
+                <div class="education-desc">Social Sciences Stream</div>
+                <div class="education-subjects">
+                  <div class="education-subject">Business Studies</div>
+                  <div class="education-subject">Geography</div>
+                  <div class="education-subject">General Studies</div>
+                  <div class="education-subject">Malay Language</div>
+                </div>
+                <div class="covid-batch">Covid-19 Batch</div>
+              </div>
+              <div class="glass-effect education-item">
+                <div class="education-icon">
+                  <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="education-title">Degree</div>
+                <div class="education-org">
+                  Bachelor of Sport Science And Recreation
+                </div>
+                <div class="education-period">2023 - 2025</div>
+                <div class="education-desc">
+                  UiTM Shah Alam student specializing in sport science with
+                  technology integration.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <h2 class="section-title">Contact Me</h2>
+        <div class="contact-container">
+          <div class="contact-info">
+            <div class="glass-effect contact-item">
+              <div class="contact-icon"><i class="fab fa-telegram"></i></div>
+              <div class="contact-platform">Telegram</div>
+              <a href="https://t.me/mydiel" class="contact-link" target="_blank"
+                >@mydiel</a
+              >
+            </div>
+            <div class="glass-effect contact-item">
+              <div class="contact-icon"><i class="fab fa-github"></i></div>
+              <div class="contact-platform">GitHub</div>
+              <a
+                href="https://github.com/Falco1337"
+                class="contact-link"
+                target="_blank"
+                >github.com/Falco1337</a
+              >
+            </div>
+            <div class="glass-effect contact-item">
+              <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+              <div class="contact-platform">Instagram</div>
+              <a
+                href="https://www.instagram.com/a.xydiel/"
+                class="contact-link"
+                target="_blank"
+                >@a.xydiel</a
+              >
+            </div>
+            <div class="glass-effect contact-item">
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div class="contact-platform">Email</div>
+              <a href="mailto:netiqtechnologies@gmail.com" class="contact-link"
+                >netiqtechnologies@gmail.com</a
+              >
+            </div>
+            <div class="glass-effect contact-item">
+              <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+              <div class="contact-platform">WhatsApp</div>
+              <a
+                href="https://wa.me/message/WUVEKGT6NHMHJ1"
+                class="contact-link"
+                target="_blank"
+                >Message Me</a
+              >
+            </div>
+            <div class="glass-effect contact-item">
+              <div class="contact-icon"><i class="fas fa-globe"></i></div>
+              <div class="contact-platform">NetIQ Technologies</div>
+              <a
+                href="https://netiqtech.biz.my"
+                class="contact-link"
+                target="_blank"
+                >netiqtech.biz.my</a
+              >
+            </div>
+          </div>
+          <div
+            class="glass-effect"
+            style="
+              padding: 40px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+            "
+          >
+            <div
+              style="
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+                color: var(--accent-cyan);
+              "
+            >
+              Get In Touch
+            </div>
+            <p
+              style="
+                color: var(--text-secondary);
+                margin-bottom: 30px;
+                line-height: 1.6;
+              "
+            >
+              I'm always open to discussing cybersecurity projects, blockchain
+              development opportunities, or backend programming collaborations.
+              Feel free to reach out through any of the platforms listed.
+            </p>
+            <div style="display: flex; align-items: center; margin-top: 20px">
+              <i
+                class="fas fa-map-marker-alt"
+                style="
+                  color: var(--accent-blue);
+                  margin-right: 10px;
+                  font-size: 1.2rem;
+                "
+              ></i>
+              <span>Johor Bahru, Malaysia</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-logo">MOHD AIDIL HIZWAN</div>
+        <div
+          style="
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            line-height: 1.6;
+          "
+        >
+          Cybersecurity Researcher | Blockchain Developer | Backend Programmer |
+          Pentester | Founder of NetIQ Technologies
+        </div>
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+          "
+        >
+          <a
+            href="https://github.com/Falco1337"
+            target="_blank"
+            style="
+              color: var(--text-secondary);
+              font-size: 1.5rem;
+              transition: color 0.3s ease;
+            "
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://t.me/mydiel"
+            target="_blank"
+            style="
+              color: var(--text-secondary);
+              font-size: 1.5rem;
+              transition: color 0.3s ease;
+            "
+            ><i class="fab fa-telegram"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/a.xydiel/"
+            target="_blank"
+            style="
+              color: var(--text-secondary);
+              font-size: 1.5rem;
+              transition: color 0.3s ease;
+            "
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a
+            href="mailto:netiqtechnologies@gmail.com"
+            style="
+              color: var(--text-secondary);
+              font-size: 1.5rem;
+              transition: color 0.3s ease;
+            "
+            ><i class="fas fa-envelope"></i
+          ></a>
+        </div>
+        <div class="footer-copyright">
+          © 2025 Mohd Aidil Hizwan. All Rights Reserved.
+        </div>
+        <div class="footer-copyright-second">Developed By Aidil Hizwan</div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const loadingScreen = document.getElementById("loadingScreen");
+        const loadingBar = document.getElementById("loadingBar");
+        const loadingText = document.getElementById("loadingText");
+        const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+        const navLinks = document.getElementById("navLinks");
+        const header = document.getElementById("mainHeader");
+
+        let loadProgress = 0;
+        const loadingInterval = setInterval(() => {
+          loadProgress += Math.random() * 15;
+          if (loadProgress > 100) loadProgress = 100;
+          loadingBar.style.width = loadProgress + "%";
+
+          if (loadProgress < 30) loadingText.textContent = "LOADING ASSETS...";
+          else if (loadProgress < 60)
+            loadingText.textContent = "INITIALIZING COMPONENTS...";
+          else if (loadProgress < 90)
+            loadingText.textContent = "FINALIZING SETUP...";
+          else loadingText.textContent = "READY...";
+
+          if (loadProgress >= 100) {
+            clearInterval(loadingInterval);
+            setTimeout(() => {
+              loadingScreen.classList.add("hidden");
+            }, 500);
+          }
+        }, 150);
+
+        mobileMenuBtn.addEventListener("click", () => {
+          navLinks.classList.toggle("active");
+          mobileMenuBtn.innerHTML = navLinks.classList.contains("active")
+            ? '<i class="fas fa-times"></i>'
+            : '<i class="fas fa-bars"></i>';
+        });
+
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 50) {
+            header.classList.add("scrolled");
+          } else {
+            header.classList.remove("scrolled");
+          }
+
+          const scrollPosition = window.scrollY;
+          document.querySelectorAll(".section").forEach((section) => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.clientHeight;
+            if (
+              scrollPosition >= sectionTop &&
+              scrollPosition < sectionTop + sectionHeight
+            ) {
+              const id = section.getAttribute("id");
+              document.querySelectorAll(".nav-links a").forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === `#${id}`) {
+                  link.classList.add("active");
+                }
+              });
+            }
+          });
+        });
+
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute("href");
+            const targetSection = document.querySelector(targetId);
+            window.scrollTo({
+              top: targetSection.offsetTop - 80,
+              behavior: "smooth",
+            });
+
+            if (navLinks.classList.contains("active")) {
+              navLinks.classList.remove("active");
+              mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          });
+        });
+
+        const skillProgressBars = document.querySelectorAll(".skill-progress");
+        const observerOptions = { threshold: 0.5 };
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              skillProgressBars.forEach((bar) => {
+                const width = bar.getAttribute("data-width");
+                setTimeout(() => {
+                  bar.style.width = width + "%";
+                }, 300);
+              });
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+
+        const skillsSection = document.querySelector(".skills-section");
+        if (skillsSection) observer.observe(skillsSection);
+
+        const ctx = document.getElementById("skillsChart").getContext("2d");
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, "rgba(0, 102, 255, 0.8)");
+        gradient.addColorStop(1, "rgba(0, 212, 255, 0.2)");
+
+        const skillsChart = new Chart(ctx, {
+          type: "radar",
+          data: {
+            labels: [
+              "Python",
+              "PHP",
+              "Bash/Linux",
+              "SQL",
+              "Ruby",
+              "Solidity",
+              "TypeScript",
+              "JavaScript",
+              "Flask",
+            ],
+            datasets: [
+              {
+                label: "Proficiency Level",
+                data: [98, 90, 100, 90, 75, 80, 85, 87, 83],
+                backgroundColor: gradient,
+                borderColor: "#0066ff",
+                borderWidth: 2,
+                pointBackgroundColor: "#00d4ff",
+                pointBorderColor: "#ffffff",
+                pointBorderWidth: 2,
+                pointRadius: 5,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                angleLines: { color: "rgba(255, 255, 255, 0.1)" },
+                grid: { color: "rgba(255, 255, 255, 0.1)" },
+                pointLabels: { color: "#b0b8d0", font: { size: 12 } },
+                ticks: {
+                  backdropColor: "transparent",
+                  color: "#b0b8d0",
+                  stepSize: 20,
+                },
+              },
+            },
+            plugins: {
+              legend: { labels: { color: "#ffffff", font: { size: 14 } } },
+            },
+          },
+        });
+
+        const animateOnScroll = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        document
+          .querySelectorAll(
+            ".project-card, .certificate-card, .education-item, .contact-item"
+          )
+          .forEach((el, index) => {
+            el.style.opacity = "0";
+            el.style.transform = "translateY(30px)";
+            el.style.transition = `opacity 0.6s ease ${
+              index * 0.1
+            }s, transform 0.6s ease ${index * 0.1}s`;
+            animateOnScroll.observe(el);
+          });
+
+        const heroCard = document.querySelector(".hero-card");
+        if (heroCard) {
+          heroCard.addEventListener("mousemove", (e) => {
+            const rect = heroCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateY = (x - centerX) / 25;
+            const rotateX = (centerY - y) / 25;
+            heroCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+          });
+          heroCard.addEventListener("mouseleave", () => {
+            heroCard.style.transform =
+              "perspective(1000px) rotateX(0) rotateY(0) translateY(-10px)";
+          });
+        }
+
+        const projectCards = document.querySelectorAll(".project-card");
+        projectCards.forEach((card) => {
+          card.addEventListener("mouseenter", () => {
+            card.classList.add("animate-glow");
+          });
+          card.addEventListener("mouseleave", () => {
+            card.classList.remove("animate-glow");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
