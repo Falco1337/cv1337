@@ -42,15 +42,20 @@
           rgba(10, 20, 40, 0.7),
           rgba(0, 20, 40, 0.4)
         );
+        --border-radius: 16px;
+        --transition: 0.3s ease;
       }
+
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
+
       html {
         scroll-behavior: smooth;
       }
+
       body {
         font-family: "Inter", sans-serif;
         background: var(--gradient-main);
@@ -58,7 +63,9 @@
         overflow-x: hidden;
         min-height: 100vh;
         position: relative;
+        line-height: 1.6;
       }
+
       body::before {
         content: "";
         position: fixed;
@@ -75,10 +82,12 @@
             circle at 80% 70%,
             rgba(0, 212, 255, 0.03) 0%,
             transparent 40%
-          );
+          ),
+          url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><circle cx="20" cy="20" r="1" fill="white"/><circle cx="70" cy="50" r="0.7" fill="white"/><circle cx="40" cy="80" r="0.5" fill="white"/><circle cx="90" cy="30" r="0.8" fill="white"/></svg>');
         pointer-events: none;
         z-index: -1;
       }
+
       .loading-screen {
         position: fixed;
         top: 0;
@@ -93,10 +102,12 @@
         z-index: 9999;
         transition: opacity 0.8s ease, visibility 0.8s ease;
       }
+
       .loading-screen.hidden {
         opacity: 0;
         visibility: hidden;
       }
+
       .loading-bar-container {
         width: 300px;
         height: 4px;
@@ -106,6 +117,7 @@
         overflow: hidden;
         position: relative;
       }
+
       .loading-bar {
         height: 100%;
         width: 0%;
@@ -113,6 +125,7 @@
         border-radius: 10px;
         transition: width 0.3s ease;
       }
+
       .loading-text {
         font-family: "JetBrains Mono", monospace;
         font-size: 14px;
@@ -120,6 +133,7 @@
         margin-top: 15px;
         letter-spacing: 2px;
       }
+
       .loading-logo {
         width: 80px;
         height: 80px;
@@ -132,6 +146,7 @@
         animation: pulse 2s infinite;
         border: 2px solid rgba(0, 102, 255, 0.3);
       }
+
       @keyframes pulse {
         0%,
         100% {
@@ -141,25 +156,29 @@
           box-shadow: 0 0 20px rgba(0, 102, 255, 0.6);
         }
       }
+
       .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
       }
+
       .glass-effect {
         background: rgba(15, 20, 32, 0.6);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 16px;
+        border-radius: var(--border-radius);
       }
+
       .section-title {
         font-size: 2.5rem;
         font-weight: 800;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
         position: relative;
         display: inline-block;
       }
+
       .section-title::after {
         content: "";
         position: absolute;
@@ -170,6 +189,7 @@
         background: var(--gradient-accent);
         border-radius: 2px;
       }
+
       header {
         position: fixed;
         top: 0;
@@ -178,17 +198,20 @@
         z-index: 1000;
         transition: all 0.4s ease;
       }
+
       header.scrolled {
-        background: rgba(10, 10, 15, 0.9);
+        background: rgba(10, 10, 15, 0.95);
         backdrop-filter: blur(10px);
         padding: 15px 0;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
       }
+
       .nav-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
       }
+
       .logo {
         display: flex;
         align-items: center;
@@ -197,30 +220,40 @@
         font-size: 1.5rem;
         color: var(--text-primary);
       }
+
       .logo-img {
         width: 50px;
         height: 50px;
         border-radius: 50%;
         object-fit: cover;
         border: 2px solid var(--accent-blue);
+        transition: transform var(--transition);
       }
+
+      .logo-img:hover {
+        transform: scale(1.05);
+      }
+
       .nav-links {
         display: flex;
         list-style: none;
         gap: 30px;
       }
+
       .nav-links a {
         color: var(--text-secondary);
         text-decoration: none;
         font-weight: 500;
         font-size: 1rem;
-        transition: all 0.3s ease;
+        transition: all var(--transition);
         position: relative;
         padding: 5px 0;
       }
+
       .nav-links a:hover {
         color: var(--text-primary);
       }
+
       .nav-links a::after {
         content: "";
         position: absolute;
@@ -229,11 +262,13 @@
         width: 0;
         height: 2px;
         background: var(--gradient-accent);
-        transition: width 0.3s ease;
+        transition: width var(--transition);
       }
+
       .nav-links a:hover::after {
         width: 100%;
       }
+
       .mobile-menu-btn {
         display: none;
         background: none;
@@ -241,18 +276,22 @@
         color: var(--text-primary);
         font-size: 1.5rem;
         cursor: pointer;
+        z-index: 1001;
       }
+
       .hero {
         padding: 200px 0 120px;
         position: relative;
         overflow: hidden;
       }
+
       .hero-content {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 60px;
         align-items: center;
       }
+
       .hero-text h1 {
         font-size: 3.5rem;
         font-weight: 800;
@@ -262,49 +301,63 @@
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
+        animation: fadeInUp 0.8s ease 0.2s both;
       }
+
       .hero-text .subtitle {
         font-size: 1.5rem;
         color: var(--text-secondary);
         margin-bottom: 30px;
         font-weight: 500;
+        animation: fadeInUp 0.8s ease 0.4s both;
       }
+
       .hero-text .title-line {
         font-size: 1.8rem;
         color: var(--accent-cyan);
         margin-bottom: 25px;
         font-family: "JetBrains Mono", monospace;
+        animation: fadeInUp 0.8s ease 0.6s both;
       }
+
       .hero-text p {
         font-size: 1.1rem;
         line-height: 1.6;
         color: var(--text-secondary);
         margin-bottom: 40px;
         max-width: 500px;
+        animation: fadeInUp 0.8s ease 0.8s both;
       }
+
       .hero-badge {
         display: inline-block;
-        padding: 8px 20px;
+        padding: 10px 24px;
         background: rgba(0, 102, 255, 0.15);
         border: 1px solid rgba(0, 102, 255, 0.3);
         border-radius: 50px;
         font-size: 0.9rem;
         color: var(--accent-cyan);
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         font-family: "JetBrains Mono", monospace;
+        letter-spacing: 1px;
+        animation: fadeInDown 0.8s ease;
       }
+
       .hero-visual {
         position: relative;
         height: 400px;
         display: flex;
         justify-content: center;
         align-items: center;
+        animation: fadeIn 1s ease 1s both;
       }
+
       .floating-shapes {
         position: absolute;
         width: 100%;
         height: 100%;
       }
+
       .shape {
         position: absolute;
         border-radius: 50%;
@@ -312,6 +365,7 @@
         opacity: 0.1;
         filter: blur(20px);
       }
+
       .shape-1 {
         width: 200px;
         height: 200px;
@@ -319,6 +373,7 @@
         right: 0;
         animation: float 8s infinite ease-in-out;
       }
+
       .shape-2 {
         width: 150px;
         height: 150px;
@@ -326,6 +381,7 @@
         left: 0;
         animation: float 10s infinite ease-in-out reverse;
       }
+
       .hero-card {
         width: 320px;
         height: 320px;
@@ -343,9 +399,7 @@
         transform-style: preserve-3d;
         transition: transform 0.5s ease;
       }
-      .hero-card:hover {
-        transform: translateY(-10px) rotateX(5deg);
-      }
+
       .hero-card::before {
         content: "";
         position: absolute;
@@ -353,24 +407,14 @@
         left: -50%;
         width: 200%;
         height: 200%;
-        background: linear-gradient(
-          45deg,
-          transparent,
-          rgba(0, 102, 255, 0.1),
-          transparent
+        background: radial-gradient(
+          circle,
+          rgba(0, 212, 255, 0.1) 0%,
+          transparent 70%
         );
-        transform: rotate(45deg);
         z-index: -1;
-        animation: shine 3s infinite;
       }
-      @keyframes shine {
-        0% {
-          transform: translateX(-100%) translateY(-100%) rotate(45deg);
-        }
-        100% {
-          transform: translateX(100%) translateY(100%) rotate(45deg);
-        }
-      }
+
       @keyframes float {
         0%,
         100% {
@@ -380,77 +424,95 @@
           transform: translateY(-20px) translateX(10px);
         }
       }
+
       .section {
         padding: 100px 0;
       }
+
       .about-content {
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 60px;
         align-items: start;
       }
+
       .about-text p {
         font-size: 1.1rem;
         line-height: 1.7;
         color: var(--text-secondary);
         margin-bottom: 25px;
       }
+
       .about-highlights {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 20px;
         margin-top: 40px;
       }
+
       .highlight-item {
-        padding: 20px;
+        padding: 25px;
         border-radius: 12px;
         background: rgba(0, 20, 40, 0.3);
         border-left: 4px solid var(--accent-blue);
-        transition: transform 0.3s ease;
+        transition: all var(--transition);
+        text-align: center;
       }
+
       .highlight-item:hover {
         transform: translateY(-5px);
+        background: rgba(0, 20, 40, 0.5);
       }
+
       .highlight-item i {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         color: var(--accent-cyan);
-        margin-bottom: 10px;
+        margin-bottom: 15px;
       }
+
       .skills-section {
         margin-top: 80px;
       }
+
       .skills-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 30px;
         margin-top: 40px;
       }
+
       .skill-chart {
-        padding: 30px;
+        padding: 35px;
         height: 100%;
       }
+
       .skill-item {
         margin-bottom: 25px;
       }
+
       .skill-header {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
       }
+
       .skill-name {
         font-weight: 600;
         color: var(--text-primary);
       }
+
       .skill-percent {
         font-family: "JetBrains Mono", monospace;
         color: var(--accent-cyan);
       }
+
       .skill-bar {
         height: 8px;
         background: rgba(255, 255, 255, 0.1);
         border-radius: 10px;
         overflow: hidden;
       }
+
       .skill-progress {
         height: 100%;
         background: var(--gradient-accent);
@@ -458,269 +520,299 @@
         width: 0;
         transition: width 1.5s ease;
       }
+
       .projects-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         gap: 30px;
         margin-top: 40px;
       }
+
       .project-card {
-        padding: 30px;
+        padding: 35px;
         height: 100%;
         transition: all 0.4s ease;
         position: relative;
         overflow: hidden;
       }
+
       .project-card:hover {
-        transform: translateY(-10px);
+        transform: translateY(-8px);
         border-color: rgba(0, 102, 255, 0.4);
-        box-shadow: 0 15px 30px rgba(0, 102, 255, 0.15);
       }
+
       .project-card::after {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 5px;
+        height: 4px;
         background: var(--gradient-accent);
       }
+
       .project-icon {
-        font-size: 2rem;
+        font-size: 2.2rem;
         color: var(--accent-cyan);
-        margin-bottom: 20px;
+        margin-bottom: 25px;
       }
+
       .project-title {
         font-size: 1.4rem;
         font-weight: 700;
         margin-bottom: 15px;
         color: var(--text-primary);
+        line-height: 1.3;
       }
+
       .project-desc {
         color: var(--text-secondary);
         line-height: 1.6;
+        font-size: 0.95rem;
       }
+
       .project-client {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 6px 14px;
+        padding: 8px 16px;
         background: rgba(0, 102, 255, 0.1);
         border-radius: 20px;
         font-size: 0.85rem;
         color: var(--accent-cyan);
-        margin-top: 15px;
+        margin-top: 20px;
         font-family: "JetBrains Mono", monospace;
         border: 1px solid rgba(0, 102, 255, 0.3);
-        animation: clientPulse 2s infinite;
       }
-      @keyframes clientPulse {
-        0%,
-        100% {
-          box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.4);
-        }
-        70% {
-          box-shadow: 0 0 0 6px rgba(0, 102, 255, 0);
-        }
-      }
+
       .certificates-section,
       .education-section {
         margin-top: 80px;
       }
+
       .education-timeline {
         position: relative;
         padding: 40px 0;
       }
+
       .education-timeline::before {
         content: "";
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        width: 4px;
+        width: 3px;
         height: 100%;
         background: var(--gradient-accent);
         border-radius: 4px;
       }
+
       .education-items {
         display: flex;
         flex-direction: column;
         gap: 40px;
       }
+
       .education-item {
         position: relative;
         width: calc(50% - 30px);
-        padding: 30px;
-        border-radius: 16px;
+        padding: 35px;
+        border-radius: var(--border-radius);
         background: rgba(10, 20, 40, 0.5);
         border: 1px solid rgba(0, 102, 255, 0.2);
         transition: all 0.4s ease;
+        opacity: 0;
+        transform: translateY(30px);
       }
+
       .education-item:nth-child(odd) {
         align-self: flex-start;
         margin-left: 0;
         margin-right: auto;
       }
+
       .education-item:nth-child(even) {
         align-self: flex-end;
         margin-left: auto;
         margin-right: 0;
       }
+
       .education-item::before {
         content: "";
         position: absolute;
-        top: 30px;
-        width: 20px;
-        height: 20px;
+        top: 35px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
         background: var(--gradient-accent);
         z-index: 2;
       }
+
       .education-item:nth-child(odd)::before {
-        right: -40px;
+        right: -38px;
       }
+
       .education-item:nth-child(even)::before {
-        left: -40px;
+        left: -38px;
       }
+
       .education-item:hover {
-        transform: translateY(-8px);
+        transform: translateY(-5px);
         border-color: rgba(0, 102, 255, 0.4);
-        box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
       }
+
       .education-icon {
         font-size: 2rem;
         color: var(--accent-cyan);
-        margin-bottom: 15px;
+        margin-bottom: 20px;
       }
+
       .education-title {
         font-size: 1.3rem;
         font-weight: 700;
         margin-bottom: 10px;
         color: var(--text-primary);
-        background: linear-gradient(90deg, #ffffff, var(--accent-cyan));
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
       }
+
       .education-org {
         color: var(--accent-cyan);
         font-size: 1rem;
         font-weight: 500;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
         font-family: "JetBrains Mono", monospace;
       }
+
       .education-period {
         display: inline-block;
-        padding: 4px 12px;
+        padding: 6px 14px;
         background: rgba(0, 102, 255, 0.2);
         border-radius: 20px;
         font-size: 0.9rem;
         color: var(--accent-cyan);
         margin-bottom: 15px;
       }
+
       .education-desc {
         color: var(--text-secondary);
         line-height: 1.6;
         font-size: 0.95rem;
         margin-bottom: 10px;
       }
+
       .education-subjects {
-        margin-top: 10px;
+        margin-top: 15px;
         padding-left: 15px;
       }
+
       .education-subject {
         display: flex;
         align-items: center;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         font-size: 0.9rem;
         color: var(--text-secondary);
       }
+
       .education-subject:before {
-        content: "•";
+        content: "▸";
         color: var(--accent-cyan);
-        margin-right: 8px;
-        font-size: 1.2rem;
+        margin-right: 10px;
+        font-size: 0.9rem;
       }
+
       .covid-batch {
         display: inline-block;
-        padding: 3px 10px;
+        padding: 5px 12px;
         background: rgba(255, 71, 87, 0.2);
         border: 1px solid rgba(255, 71, 87, 0.4);
         border-radius: 12px;
         font-size: 0.85rem;
         color: var(--accent-red);
         font-family: "JetBrains Mono", monospace;
-        margin-top: 8px;
+        margin-top: 10px;
       }
+
       .cv-button {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        padding: 12px 25px;
+        padding: 12px 28px;
         background: rgba(0, 102, 255, 0.2);
         border: 1px solid rgba(0, 102, 255, 0.4);
         border-radius: 8px;
         color: var(--accent-cyan);
         text-decoration: none;
         font-weight: 500;
-        transition: all 0.3s ease;
-        margin-top: 15px;
+        transition: all var(--transition);
+        margin-top: 20px;
+        font-family: "JetBrains Mono", monospace;
       }
+
       .cv-button:hover {
         background: rgba(0, 102, 255, 0.3);
         transform: translateY(-3px);
       }
+
       .contact-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 60px;
         margin-top: 40px;
       }
+
       .contact-info {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 25px;
       }
+
       .contact-item {
-        padding: 25px;
+        padding: 30px;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        transition: transform 0.3s ease;
+        transition: transform var(--transition);
       }
+
       .contact-item:hover {
-        transform: translateY(-8px);
+        transform: translateY(-5px);
       }
+
       .contact-icon {
-        font-size: 2rem;
+        font-size: 2.2rem;
         color: var(--accent-cyan);
-        margin-bottom: 15px;
+        margin-bottom: 20px;
       }
+
       .contact-platform {
         font-weight: 600;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         color: var(--text-primary);
+        font-size: 1.1rem;
       }
+
       .contact-link {
         color: var(--text-secondary);
         text-decoration: none;
-        transition: color 0.3s ease;
+        transition: color var(--transition);
         font-size: 0.95rem;
-        word-break: break-all;
+        word-break: break-word;
       }
+
       .contact-link:hover {
         color: var(--accent-cyan);
       }
+
       footer {
         padding: 60px 0 30px;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
         margin-top: 80px;
         text-align: center;
       }
+
       .footer-logo {
         font-size: 1.8rem;
         font-weight: 700;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
         background: linear-gradient(
           90deg,
           var(--accent-blue),
@@ -730,51 +822,105 @@
         background-clip: text;
         -webkit-text-fill-color: transparent;
       }
+
       .footer-copyright {
         color: var(--text-secondary);
         font-size: 0.9rem;
         margin-top: 30px;
       }
+
       .footer-copyright-second {
         color: var(--text-secondary);
         font-size: 0.9rem;
         margin-top: 5px;
       }
+
       .chart-container {
         position: relative;
-        height: 300px;
+        height: 320px;
         margin-top: 30px;
       }
+
       .certificates-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 25px;
+        gap: 30px;
         margin-top: 40px;
       }
+
       .certificate-card {
-        padding: 25px;
+        padding: 30px;
         display: flex;
         flex-direction: column;
         height: 100%;
+        transition: transform var(--transition);
       }
+
+      .certificate-card:hover {
+        transform: translateY(-5px);
+      }
+
       .certificate-icon {
-        font-size: 1.8rem;
+        font-size: 2rem;
         color: var(--accent-cyan);
-        margin-bottom: 15px;
+        margin-bottom: 20px;
       }
+
       .certificate-title {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: 600;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        line-height: 1.3;
       }
+
       .certificate-org {
         color: var(--text-secondary);
         font-size: 0.95rem;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        font-family: "JetBrains Mono", monospace;
       }
-      .project-client i {
-        font-size: 0.9rem;
+
+      .marquee-container {
+        width: 100%;
+        height: 120px;
+        overflow: hidden;
+        background: rgba(0, 102, 255, 0.05);
+        border-radius: 8px;
+        border: 1px solid rgba(0, 102, 255, 0.1);
       }
+
+      .marquee-content {
+        display: flex;
+        flex-direction: column;
+        animation: vertical-scroll 20s linear infinite;
+      }
+
+      .marquee-item {
+        padding: 12px 20px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.95rem;
+        color: var(--accent-cyan);
+        text-align: center;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid rgba(0, 102, 255, 0.1);
+      }
+
+      .marquee-item:last-child {
+        border-bottom: none;
+      }
+
+      @keyframes vertical-scroll {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-50%);
+        }
+      }
+
       @keyframes fadeInUp {
         from {
           opacity: 0;
@@ -785,21 +931,108 @@
           transform: translateY(0);
         }
       }
-      .animate-fade-in-up {
-        animation: fadeInUp 0.6s ease forwards;
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-      @keyframes glow {
-        0%,
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .space-widget {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: rgba(0, 102, 255, 0.15);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0, 212, 255, 0.3);
+      }
+
+      .space-widget:hover {
+        transform: scale(1.1);
+        background: rgba(0, 102, 255, 0.25);
+      }
+
+      .space-widget i {
+        font-size: 1.5rem;
+        color: var(--accent-cyan);
+        animation: spin 10s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
         100% {
-          filter: drop-shadow(0 0 5px rgba(0, 102, 255, 0.5));
+          transform: rotate(360deg);
+        }
+      }
+
+      .typing-animation {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 2px solid var(--accent-cyan);
+        animation: typing 3.5s steps(30, end), blink 0.75s step-end infinite;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes blink {
+        from,
+        to {
+          border-color: transparent;
         }
         50% {
-          filter: drop-shadow(0 0 15px rgba(0, 102, 255, 0.8));
+          border-color: var(--accent-cyan);
         }
       }
-      .animate-glow {
-        animation: glow 2s infinite;
+
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
       }
+
+      .particle {
+        position: absolute;
+        background: var(--accent-cyan);
+        border-radius: 50%;
+        opacity: 0.3;
+      }
+
       @media (max-width: 1024px) {
         .hero-content,
         .about-content,
@@ -827,28 +1060,26 @@
           right: auto;
         }
       }
+
       @media (max-width: 768px) {
         .nav-links {
           position: fixed;
-          top: 80px;
+          top: 0;
           left: 0;
           width: 100%;
-          background: rgba(10, 10, 15, 0.95);
+          height: 100vh;
+          background: rgba(10, 10, 15, 0.98);
           backdrop-filter: blur(10px);
           flex-direction: column;
           align-items: center;
-          padding: 30px 0;
-          gap: 25px;
-          transform: translateY(-100%);
-          opacity: 0;
-          visibility: hidden;
-          transition: all 0.4s ease;
-          z-index: 999;
+          justify-content: center;
+          gap: 30px;
+          transform: translateX(-100%);
+          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 1000;
         }
         .nav-links.active {
-          transform: translateY(0);
-          opacity: 1;
-          visibility: visible;
+          transform: translateX(0);
         }
         .mobile-menu-btn {
           display: block;
@@ -868,7 +1099,25 @@
         .projects-grid {
           grid-template-columns: 1fr;
         }
+        .contact-info {
+          grid-template-columns: 1fr;
+        }
+        .marquee-container {
+          height: 100px;
+        }
+        .marquee-item {
+          height: 33px;
+          font-size: 0.85rem;
+          padding: 10px 15px;
+        }
+        .space-widget {
+          bottom: 20px;
+          right: 20px;
+          width: 50px;
+          height: 50px;
+        }
       }
+
       @media (max-width: 480px) {
         .hero-text h1 {
           font-size: 2rem;
@@ -885,25 +1134,43 @@
         .education-item {
           width: calc(100% - 40px);
           margin-left: 40px !important;
-          padding: 20px;
+          padding: 25px;
         }
         .education-item::before {
-          width: 16px;
-          height: 16px;
-          left: -28px !important;
+          width: 14px;
+          height: 14px;
+          left: -27px !important;
+        }
+        .hero-badge {
+          font-size: 0.8rem;
+          padding: 8px 20px;
+        }
+        .marquee-container {
+          height: 90px;
+        }
+        .marquee-item {
+          height: 30px;
+          font-size: 0.8rem;
+          padding: 8px 12px;
         }
       }
     </style>
   </head>
   <body>
+    <div class="particles" id="particles"></div>
+
     <div class="loading-screen" id="loadingScreen">
       <div class="loading-logo">
-        <i class="fas fa-code" style="font-size: 2rem; color: #0066ff"></i>
+        <i class="fas fa-satellite" style="font-size: 2rem; color: #0066ff"></i>
       </div>
       <div class="loading-bar-container">
         <div class="loading-bar" id="loadingBar"></div>
       </div>
-      <div class="loading-text" id="loadingText">INITIALIZING PORTFOLIO...</div>
+      <div class="loading-text" id="loadingText">INITIALIZING SYSTEMS</div>
+    </div>
+
+    <div class="space-widget" id="spaceWidget">
+      <i class="fas fa-rocket"></i>
     </div>
 
     <header id="mainHeader">
@@ -914,7 +1181,7 @@
               src="dil.jpg"
               alt="Logo"
               class="logo-img"
-              onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-code\'></i>';"
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-user-astronaut\'></i>';"
             />
             <span>MOHD AIDIL HIZWAN</span>
           </div>
@@ -939,14 +1206,14 @@
         <div class="hero-content">
           <div class="hero-text">
             <div class="hero-badge">
-              CYBERSECURITY RESEARCHER | SOFTWARE ENGINEER | FOUNDER
+              CYBERSECURITY | BLOCKCHAIN | SOFTWARE ENGINEERING
             </div>
             <h1>Mohd Aidil Hizwan</h1>
-            <div class="title-line">UiTM Shah Alam Alumni</div>
+            <div class="title-line typing-animation">UiTM Shah Alam Alumni</div>
             <div class="subtitle">Bachelor of Sport Science and Recreation</div>
             <p>
               Cybersecurity Researcher | Blockchain Developer | Backend
-              Programmer | Pentester | Founder of
+              Programmer | Founder of
               <a
                 href="https://netiqtech.biz.my"
                 style="color: var(--accent-cyan); text-decoration: none"
@@ -973,61 +1240,40 @@
               <div class="shape shape-1"></div>
               <div class="shape shape-2"></div>
             </div>
-            <div class="hero-card animate-glow">
+            <div class="hero-card">
               <div
                 style="
                   font-size: 1.1rem;
                   color: var(--accent-cyan);
-                  margin-bottom: 15px;
+                  margin-bottom: 20px;
                   font-family: 'JetBrains Mono', monospace;
+                  font-weight: 600;
                 "
               >
                 TECH STACK
               </div>
               <div
-                style="
-                  display: flex;
-                  flex-wrap: wrap;
-                  gap: 10px;
-                  margin-bottom: 25px;
-                "
+                class="marquee-container"
+                style="height: 120px; margin-bottom: 25px"
               >
-                <span
-                  style="
-                    padding: 5px 12px;
-                    background: rgba(0, 102, 255, 0.2);
-                    border-radius: 20px;
-                    font-size: 0.9rem;
-                  "
-                  >Python</span
-                >
-                <span
-                  style="
-                    padding: 5px 12px;
-                    background: rgba(0, 102, 255, 0.2);
-                    border-radius: 20px;
-                    font-size: 0.9rem;
-                  "
-                  >PHP</span
-                >
-                <span
-                  style="
-                    padding: 5px 12px;
-                    background: rgba(0, 102, 255, 0.2);
-                    border-radius: 20px;
-                    font-size: 0.9rem;
-                  "
-                  >Solidity</span
-                >
-                <span
-                  style="
-                    padding: 5px 12px;
-                    background: rgba(0, 102, 255, 0.2);
-                    border-radius: 20px;
-                    font-size: 0.9rem;
-                  "
-                  >JavaScript</span
-                >
+                <div class="marquee-content">
+                  <div class="marquee-item">Python</div>
+                  <div class="marquee-item">PHP</div>
+                  <div class="marquee-item">Solidity</div>
+                  <div class="marquee-item">JavaScript</div>
+                  <div class="marquee-item">TypeScript</div>
+                  <div class="marquee-item">SQL</div>
+                  <div class="marquee-item">Bash/Linux</div>
+                  <div class="marquee-item">Flask</div>
+                  <div class="marquee-item">Python</div>
+                  <div class="marquee-item">PHP</div>
+                  <div class="marquee-item">Solidity</div>
+                  <div class="marquee-item">JavaScript</div>
+                  <div class="marquee-item">TypeScript</div>
+                  <div class="marquee-item">SQL</div>
+                  <div class="marquee-item">Bash/Linux</div>
+                  <div class="marquee-item">Flask</div>
+                </div>
               </div>
               <div
                 style="
@@ -1035,6 +1281,7 @@
                   color: var(--accent-cyan);
                   margin-bottom: 15px;
                   font-family: 'JetBrains Mono', monospace;
+                  font-weight: 600;
                 "
               >
                 SPECIALIZATION
@@ -1079,12 +1326,12 @@
               focus on blockchain applications and cybersecurity.
             </p>
           </div>
-          <div class="glass-effect" style="padding: 30px">
+          <div class="glass-effect" style="padding: 35px">
             <div
               style="
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 color: var(--accent-cyan);
-                margin-bottom: 20px;
+                margin-bottom: 25px;
                 font-weight: 600;
               "
             >
@@ -1092,36 +1339,36 @@
             </div>
             <div style="margin-bottom: 20px">
               <div
-                style="display: flex; align-items: center; margin-bottom: 15px"
+                style="display: flex; align-items: center; margin-bottom: 18px"
               >
                 <i
                   class="fas fa-graduation-cap"
-                  style="color: var(--accent-blue); margin-right: 10px"
+                  style="color: var(--accent-blue); margin-right: 12px"
                 ></i>
                 <span>UiTM Shah Alam Graduate</span>
               </div>
               <div
-                style="display: flex; align-items: center; margin-bottom: 15px"
+                style="display: flex; align-items: center; margin-bottom: 18px"
               >
                 <i
                   class="fas fa-briefcase"
-                  style="color: var(--accent-blue); margin-right: 10px"
+                  style="color: var(--accent-blue); margin-right: 12px"
                 ></i>
                 <span>Founder of NetIQ Technologies</span>
               </div>
               <div
-                style="display: flex; align-items: center; margin-bottom: 15px"
+                style="display: flex; align-items: center; margin-bottom: 18px"
               >
                 <i
                   class="fas fa-code"
-                  style="color: var(--accent-blue); margin-right: 10px"
+                  style="color: var(--accent-blue); margin-right: 12px"
                 ></i>
                 <span>10+ Programming Languages</span>
               </div>
               <div style="display: flex; align-items: center">
                 <i
                   class="fas fa-project-diagram"
-                  style="color: var(--accent-blue); margin-right: 10px"
+                  style="color: var(--accent-blue); margin-right: 12px"
                 ></i>
                 <span>15+ Completed Projects</span>
               </div>
@@ -1231,7 +1478,7 @@
       <div class="container">
         <h2 class="section-title">Projects</h2>
         <div class="projects-grid">
-          <div class="glass-effect project-card animate-fade-in-up">
+          <div class="glass-effect project-card">
             <div class="project-icon"><i class="fas fa-hospital"></i></div>
             <div class="project-title">Patient Registration Software</div>
             <div class="project-desc">
@@ -1243,7 +1490,7 @@
               Bahru
             </div>
           </div>
-          <div class="glass-effect project-card animate-fade-in-up">
+          <div class="glass-effect project-card">
             <div class="project-icon"><i class="fas fa-link"></i></div>
             <div class="project-title">
               Blockchain Digital Identity Verification
@@ -1256,7 +1503,7 @@
               <i class="fas fa-city"></i> MBKT & MBJB
             </div>
           </div>
-          <div class="glass-effect project-card animate-fade-in-up">
+          <div class="glass-effect project-card">
             <div class="project-icon"><i class="fas fa-chart-bar"></i></div>
             <div class="project-title">Procurement Analytics Dashboard</div>
             <div class="project-desc">
@@ -1267,7 +1514,7 @@
               <i class="fas fa-chart-line"></i> Power BI (SIRIM Berhad)
             </div>
           </div>
-          <div class="glass-effect project-card animate-fade-in-up">
+          <div class="glass-effect project-card">
             <div class="project-icon"><i class="fas fa-robot"></i></div>
             <div class="project-title">AI-Powered Security Analyzer</div>
             <div class="project-desc">
@@ -1278,7 +1525,7 @@
               <i class="fas fa-trophy"></i> UiTM Hackathon
             </div>
           </div>
-          <div class="glass-effect project-card animate-fade-in-up">
+          <div class="glass-effect project-card">
             <div class="project-icon"><i class="fas fa-code"></i></div>
             <div class="project-title">Web Development Projects</div>
             <div class="project-desc">
@@ -1289,7 +1536,7 @@
               <i class="fas fa-diagram-project"></i> MBSA & DBKL
             </div>
           </div>
-          <div class="glass-effect project-card animate-fade-in-up">
+          <div class="glass-effect project-card">
             <div class="project-icon"><i class="fas fa-shield-alt"></i></div>
             <div class="project-title">SOC Analyst & System Administration</div>
             <div class="project-desc">
@@ -1301,7 +1548,7 @@
               Terengganu
             </div>
           </div>
-          <div class="glass-effect project-card animate-fade-in-up">
+          <div class="glass-effect project-card">
             <div class="project-icon"><i class="fas fa-search"></i></div>
             <div class="project-title">Digital Forensic Investigation</div>
             <div class="project-desc">
@@ -1313,7 +1560,7 @@
               International & UKM
             </div>
           </div>
-          <div class="glass-effect project-card animate-fade-in-up">
+          <div class="glass-effect project-card">
             <div class="project-icon"><i class="fas fa-brain"></i></div>
             <div class="project-title">NetAlin AI Business Management</div>
             <div class="project-desc">
@@ -1381,9 +1628,8 @@
               href="https://drive.google.com/file/d/1pAei5I4toWRyNvcO_nmqeza5nJgkckQU/view?usp=sharing"
               class="cv-button"
               target="_blank"
+              ><i class="fas fa-file-alt"></i> Review CV</a
             >
-              <i class="fas fa-file-alt"></i> Review CV
-            </a>
           </div>
         </div>
 
@@ -1532,6 +1778,7 @@
                 font-size: 1.4rem;
                 margin-bottom: 20px;
                 color: var(--accent-cyan);
+                font-weight: 600;
               "
             >
               Get In Touch
@@ -1552,7 +1799,7 @@
                 class="fas fa-map-marker-alt"
                 style="
                   color: var(--accent-blue);
-                  margin-right: 10px;
+                  margin-right: 12px;
                   font-size: 1.2rem;
                 "
               ></i>
@@ -1572,10 +1819,11 @@
             margin: 0 auto;
             color: var(--text-secondary);
             line-height: 1.6;
+            font-size: 1rem;
           "
         >
           Cybersecurity Researcher | Blockchain Developer | Backend Programmer |
-          Pentester | Founder of NetIQ Technologies
+          Founder of NetIQ Technologies
         </div>
         <div
           style="
@@ -1591,7 +1839,7 @@
             style="
               color: var(--text-secondary);
               font-size: 1.5rem;
-              transition: color 0.3s ease;
+              transition: color var(--transition);
             "
             ><i class="fab fa-github"></i
           ></a>
@@ -1601,7 +1849,7 @@
             style="
               color: var(--text-secondary);
               font-size: 1.5rem;
-              transition: color 0.3s ease;
+              transition: color var(--transition);
             "
             ><i class="fab fa-telegram"></i
           ></a>
@@ -1611,7 +1859,7 @@
             style="
               color: var(--text-secondary);
               font-size: 1.5rem;
-              transition: color 0.3s ease;
+              transition: color var(--transition);
             "
             ><i class="fab fa-instagram"></i
           ></a>
@@ -1620,7 +1868,7 @@
             style="
               color: var(--text-secondary);
               font-size: 1.5rem;
-              transition: color 0.3s ease;
+              transition: color var(--transition);
             "
             ><i class="fas fa-envelope"></i
           ></a>
@@ -1640,6 +1888,22 @@
         const mobileMenuBtn = document.getElementById("mobileMenuBtn");
         const navLinks = document.getElementById("navLinks");
         const header = document.getElementById("mainHeader");
+        const spaceWidget = document.getElementById("spaceWidget");
+        const particlesContainer = document.getElementById("particles");
+
+        for (let i = 0; i < 50; i++) {
+          const particle = document.createElement("div");
+          particle.classList.add("particle");
+          particle.style.width = Math.random() * 3 + 1 + "px";
+          particle.style.height = particle.style.width;
+          particle.style.left = Math.random() * 100 + "%";
+          particle.style.top = Math.random() * 100 + "%";
+          particle.style.animation = `float ${
+            Math.random() * 20 + 10
+          }s infinite ease-in-out`;
+          particle.style.animationDelay = Math.random() * 5 + "s";
+          particlesContainer.appendChild(particle);
+        }
 
         let loadProgress = 0;
         const loadingInterval = setInterval(() => {
@@ -1647,12 +1911,11 @@
           if (loadProgress > 100) loadProgress = 100;
           loadingBar.style.width = loadProgress + "%";
 
-          if (loadProgress < 30) loadingText.textContent = "LOADING ASSETS...";
+          if (loadProgress < 30) loadingText.textContent = "LOADING ASSETS";
           else if (loadProgress < 60)
-            loadingText.textContent = "INITIALIZING COMPONENTS...";
-          else if (loadProgress < 90)
-            loadingText.textContent = "FINALIZING SETUP...";
-          else loadingText.textContent = "READY...";
+            loadingText.textContent = "INITIALIZING COMPONENTS";
+          else if (loadProgress < 90) loadingText.textContent = "FINALIZING";
+          else loadingText.textContent = "READY";
 
           if (loadProgress >= 100) {
             clearInterval(loadingInterval);
@@ -1675,24 +1938,6 @@
           } else {
             header.classList.remove("scrolled");
           }
-
-          const scrollPosition = window.scrollY;
-          document.querySelectorAll(".section").forEach((section) => {
-            const sectionTop = section.offsetTop - 100;
-            const sectionHeight = section.clientHeight;
-            if (
-              scrollPosition >= sectionTop &&
-              scrollPosition < sectionTop + sectionHeight
-            ) {
-              const id = section.getAttribute("id");
-              document.querySelectorAll(".nav-links a").forEach((link) => {
-                link.classList.remove("active");
-                if (link.getAttribute("href") === `#${id}`) {
-                  link.classList.add("active");
-                }
-              });
-            }
-          });
         });
 
         document.querySelectorAll(".nav-links a").forEach((link) => {
@@ -1710,6 +1955,14 @@
               mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             }
           });
+        });
+
+        spaceWidget.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          spaceWidget.style.transform = "scale(0.8)";
+          setTimeout(() => {
+            spaceWidget.style.transform = "scale(1)";
+          }, 300);
         });
 
         const skillProgressBars = document.querySelectorAll(".skill-progress");
@@ -1736,7 +1989,7 @@
         gradient.addColorStop(0, "rgba(0, 102, 255, 0.8)");
         gradient.addColorStop(1, "rgba(0, 212, 255, 0.2)");
 
-        const skillsChart = new Chart(ctx, {
+        new Chart(ctx, {
           type: "radar",
           data: {
             labels: [
@@ -1760,7 +2013,7 @@
                 pointBackgroundColor: "#00d4ff",
                 pointBorderColor: "#ffffff",
                 pointBorderWidth: 2,
-                pointRadius: 5,
+                pointRadius: 4,
               },
             ],
           },
@@ -1771,7 +2024,7 @@
               r: {
                 angleLines: { color: "rgba(255, 255, 255, 0.1)" },
                 grid: { color: "rgba(255, 255, 255, 0.1)" },
-                pointLabels: { color: "#b0b8d0", font: { size: 12 } },
+                pointLabels: { color: "#b0b8d0", font: { size: 11 } },
                 ticks: {
                   backdropColor: "transparent",
                   color: "#b0b8d0",
@@ -1787,10 +2040,12 @@
 
         const animateOnScroll = new IntersectionObserver(
           (entries) => {
-            entries.forEach((entry) => {
+            entries.forEach((entry, index) => {
               if (entry.isIntersecting) {
-                entry.target.style.opacity = "1";
-                entry.target.style.transform = "translateY(0)";
+                setTimeout(() => {
+                  entry.target.style.opacity = "1";
+                  entry.target.style.transform = "translateY(0)";
+                }, index * 100);
               }
             });
           },
@@ -1798,17 +2053,22 @@
         );
 
         document
-          .querySelectorAll(
-            ".project-card, .certificate-card, .education-item, .contact-item"
-          )
-          .forEach((el, index) => {
+          .querySelectorAll(".project-card, .certificate-card, .contact-item")
+          .forEach((el) => {
             el.style.opacity = "0";
             el.style.transform = "translateY(30px)";
-            el.style.transition = `opacity 0.6s ease ${
-              index * 0.1
-            }s, transform 0.6s ease ${index * 0.1}s`;
+            el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
             animateOnScroll.observe(el);
           });
+
+        document.querySelectorAll(".education-item").forEach((el, index) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(30px)";
+          el.style.transition = `opacity 0.6s ease ${
+            index * 0.2
+          }s, transform 0.6s ease ${index * 0.2}s`;
+          animateOnScroll.observe(el);
+        });
 
         const heroCard = document.querySelector(".hero-card");
         if (heroCard) {
@@ -1820,23 +2080,13 @@
             const centerY = rect.height / 2;
             const rotateY = (x - centerX) / 25;
             const rotateX = (centerY - y) / 25;
-            heroCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            heroCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
           });
           heroCard.addEventListener("mouseleave", () => {
             heroCard.style.transform =
-              "perspective(1000px) rotateX(0) rotateY(0) translateY(-10px)";
+              "perspective(1000px) rotateX(0) rotateY(0)";
           });
         }
-
-        const projectCards = document.querySelectorAll(".project-card");
-        projectCards.forEach((card) => {
-          card.addEventListener("mouseenter", () => {
-            card.classList.add("animate-glow");
-          });
-          card.addEventListener("mouseleave", () => {
-            card.classList.remove("animate-glow");
-          });
-        });
       });
     </script>
   </body>
